@@ -4,6 +4,8 @@
 
 Interactive visualization tool for exploring Hacker News discussion threads. Load any thread by ID or URL and navigate complex conversations using multiple layout views, pan/zoom controls, and an optional local LLM integration for analysis.
 
+![HN Thread Atlas - Frontpage Mosaic View](screenshot.png)
+
 ## Features
 
 ### Visualization Layouts

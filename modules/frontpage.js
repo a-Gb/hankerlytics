@@ -455,19 +455,21 @@ export function renderFrontpageMosaic(ctx) {
 
     // Preview content
     if (layout) {
-      const scale = Math.min(
-        previewWidth / layout.bounds.width,
-        previewHeight / layout.bounds.height,
-      );
+      // Scale to fill preview width; vertical content clips via clip-path
+      const scale = previewWidth / layout.bounds.width;
       const previewGroup = svgEl("g", {
         class: "frontpage-preview-layer",
-        transform: `translate(${previewX}, ${previewY + size.previewPad}) scale(${scale})`,
         "clip-path": `url(#${previewClipId})`,
+      });
+      // Inner group with transform: scale around origin, then translate to position
+      const innerGroup = svgEl("g", {
+        transform: `translate(${previewX}, ${previewY + size.previewPad}) scale(${scale})`,
       });
       icicleLayout.render(layout, {
         state: frontpagePreviews.get(item.id),
-        layer: previewGroup,
+        layer: innerGroup,
       });
+      previewGroup.appendChild(innerGroup);
       tile.appendChild(previewGroup);
     } else {
       const loading = svgEl("text", {
